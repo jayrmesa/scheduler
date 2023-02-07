@@ -15,3 +15,20 @@ export const getAppointmentsForDay = (state, day) => {
 
   return filteredAppointments;
 };
+
+export const getInterview = (state, interview) => {
+  
+   // If there is no interview, return null
+  if (!interview) {
+    return null;
+  }
+
+  // If there is an interview, return object, otherwise null
+  const interviewer = state.interviewers[interview.interviewer];
+
+  if (!interviewer) {
+    return null;
+  }
+
+  return { ...interview, interviewer};
+};
