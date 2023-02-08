@@ -29,8 +29,7 @@ useEffect(() => {
   }, []);
 
 
-  // Update appointment state based on appointment id and interview
-
+// Update appointment state based on appointment id and interview
 const bookInterview = (id, interview) => {
   const appointment = {
     ...state.appointments[id],
@@ -52,14 +51,35 @@ const bookInterview = (id, interview) => {
   });
 };
 
+
+// Set appointment interview to null in state, which based on appointment id
+const cancelInterview = id => {
+  const appointment = {
+    ...state.appointments[id],
+    interview: null
+  };
+
+  const appointments = {
+    ...state.appointments,
+    [id]: appointment
+  };
+
+// Call server API to cancel interview in appointment
+  return axios.delete(`/api/appointments/${id}`)
+  .then(res => {
+    setState({
+      ...state,
+      appointments,
+    });
+  });
+};
+
 const setDay = day => setState({ ...state, day });
 const dailyAppointments = getAppointmentsForDay(state, state.day);
+const interviewers = getInterviewersForDay(state, state.day);
   
 const appointmentList = dailyAppointments.map((appointment) => {    
   const interview = getInterview(state, appointment.interview);
-  const interviewers = getInterviewersForDay(state, state.day);
-
-        
     return (
       <Appointment 
         key={appointment.id}
@@ -67,7 +87,7 @@ const appointmentList = dailyAppointments.map((appointment) => {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
-        appointmentId={appointment.id}
+        cancelInterview={cancelInterview}
       />
     );
   });
