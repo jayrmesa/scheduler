@@ -25,10 +25,24 @@ export const getInterview = (state, interview) => {
 
   // If there is an interview, return object, otherwise null
   const interviewer = state.interviewers[interview.interviewer];
-
   if (!interviewer) {
     return null;
   }
 
   return { ...interview, interviewer};
+};
+
+export const getInterviewersForDay = (state, day) => {
+  
+  //Return an empty array if the days data is empty
+  const daysData = state.days.find(d => d.name === day);
+  if (!daysData) {
+    return [];
+  }
+
+  // Filter the interviewers data for the day 
+  const filteredInterviewers = Object.values(state.interviewers).filter(interviewer => 
+    daysData.interviewers.includes(interviewer.id)
+  );
+  return filteredInterviewers;
 };

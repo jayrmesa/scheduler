@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
-
+import axios from "axios";
 import "components/Application.scss";
-
 import DayList from "./DayList";
 import Appointment from "./Appointment";
-import axios from "axios";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 
 export default function Application(props) {
-
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -17,33 +14,34 @@ export default function Application(props) {
     interviewers: {}
   });
 
-
-  // GET Routes
-  useEffect(() => {
-    Promise.all([
-      axios.get('/api/days'),
-      axios.get('/api/appointments'),
-      axios.get('/api/interviewers')
+// GET Routes
+useEffect(() => {
+  Promise.all([
+    axios.get('/api/days'),
+    axios.get('/api/appointments'),
+    axios.get('/api/interviewers')
     ]).then((responses) => {
       setState(prev => 
-        ({...prev, days: responses[0].data,
-            appointments: responses[1].data, 
-            interviewers: responses[2].data}));
+      ({...prev, days: responses[0].data,
+          appointments: responses[1].data, 
+          interviewers: responses[2].data}));
     });
   }, [])
 
-  const setDay = day => setState({ ...state, day });
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
+const setDay = day => setState({ ...state, day });
+const dailyAppointments = getAppointmentsForDay(state, state.day);
   
-  const appointmentList = dailyAppointments.map((appointment) => {    
-    const interview = getInterview(state, appointment.interview);
+const appointmentList = dailyAppointments.map((appointment) => {    
+  const interview = getInterview(state, appointment.interview);
+  const interviewers = getInterviewersForDay(state, state.day);
+
         
     return (
       <Appointment 
         key={appointment.id}
         {...appointment}
         interview={interview}
-        interviewers={state.interviewers}
+        interviewers={interviewers}
         appointmentId={appointment.id}
       />
     );
