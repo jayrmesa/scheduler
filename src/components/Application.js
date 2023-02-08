@@ -26,7 +26,31 @@ useEffect(() => {
           appointments: responses[1].data, 
           interviewers: responses[2].data}));
     });
-  }, [])
+  }, []);
+
+
+  // Update appointment state based on appointment id and interview
+
+const bookInterview = (id, interview) => {
+  const appointment = {
+    ...state.appointments[id],
+    interview: {...interview}
+  };
+  
+  const appointments = {     
+    ...state.appointments,
+    [id]: appointment
+  };
+
+  return axios.put(`/api/appointments/${id}`, {
+    interview: interview
+  }).then(res => {
+    setState({
+      ...state,
+      appointments,
+    });
+  });
+};
 
 const setDay = day => setState({ ...state, day });
 const dailyAppointments = getAppointmentsForDay(state, state.day);
@@ -42,6 +66,7 @@ const appointmentList = dailyAppointments.map((appointment) => {
         {...appointment}
         interview={interview}
         interviewers={interviewers}
+        bookInterview={bookInterview}
         appointmentId={appointment.id}
       />
     );
