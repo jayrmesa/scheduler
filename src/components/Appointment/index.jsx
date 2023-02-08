@@ -18,6 +18,7 @@ export default function Appointment(props) {
   const SAVING = "SAVING";
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
+  const EDIT = "EDIT";
 
 
   // Visual mode logic , if interview prop exists mode is SHOW, else EMPTY
@@ -56,6 +57,7 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onDelete={() => transition(CONFIRM)}
+          onEdit={() => transition(EDIT)}
         />
        )}
        {mode === CREATE && (
@@ -74,6 +76,15 @@ export default function Appointment(props) {
           onConfirm={deleteAppointment}
         />
       )}
+      {mode === EDIT && (
+      <Form
+        student={props.interview.student}
+        interviewer={props.interview.interviewer}
+        interviewers={props.interviewers}
+        onCancel={back}
+        onSave={save}
+      />
+    )}
     </article>
   );
 };
