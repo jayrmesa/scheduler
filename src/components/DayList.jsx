@@ -5,14 +5,15 @@ export default function DayList(props) {
 
   // Using.map for days array to create a DayListItem componenet per day in state
 
-  const dayItems = props.days.map(day =>
-    <DayListItem
+  const dayItems = props.days.map(day => {
+    return <DayListItem
       key={day.id}
       name={day.name}
       spots={day.spots}
       selected={day.name === props.value}
-      setDay={() => props.onChange}
-    />);
+      setDay={props.onChange}
+    />
+  });
 
   return (
     <ul>

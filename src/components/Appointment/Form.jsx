@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Button from "../Button";
 import InterviewerList from "../InterviewerList";
+import Button from "../Button";
 
 export default function Form(props) {
 
@@ -8,21 +8,22 @@ export default function Form(props) {
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
     // Clear interviewer and student
-    const reset = () => {
-      setStudent("");
+    const reset = function() {
       setInterviewer(null);
-    };
+      setStudent("");
+    }
   
     // reset state and call onCancel
-    const cancel = () => {
+    const cancel = function() {
       reset();
       props.onCancel();
-    };
+    }
 
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
-        <form autoComplete="off" onSubmit={event => event.preventDefault()}>
+
+        <form autoComplete="off" onSubmit={event => event.preventDefault}>
           <input
             className="appointment__create-input text--semi-bold"
             name="name"
@@ -30,15 +31,16 @@ export default function Form(props) {
             placeholder="Enter Student Name"
             value={student}
             onChange={(event) => setStudent(event.target.value)}
-
           />
         </form>
+
         <InterviewerList 
-          interviewers={props.interviewers}
-          value={interviewer && interviewer.id}
+          interviewers={[]} //props.interviewers TODO
+          interviewer={interviewer}
           onChange={setInterviewer}
         />
       </section>
+      
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={cancel}>Cancel</Button>

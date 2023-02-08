@@ -9,13 +9,12 @@ export const useVisualMode = (initial) => {
   // Push new mode to the end of the history with set to current mode
   const transition = ((newMode, replace = false) => {
     
-    // If replace is true, overwrite last element in history
+    // If replace is true, overwrite last element in history 
     setHistory(prev => replace ? [...prev.slice(0, -1), newMode] : [...prev, newMode]);
     
     setMode(newMode);
   });
 
-  // Pop last mode in History and set mode to last item after pop
   // Prevent from reverting past initial mode
   const back = (() => {
     if (history.length > 1) {
