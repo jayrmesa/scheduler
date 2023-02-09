@@ -26,6 +26,14 @@ useEffect(() => {
     });
   }, []);
 
+const getUpdateSpots = (appointments) => {
+  const day = state.days.find(day => day.name === state.day);
+  const spots = day.appointments.filter(id => !appointments[id].interview).length;
+  
+  return state.days.map(day => state.day === day.name ? {...day, spots } : {...day});
+
+}; 
+
 // Update appointment state based on appointment id and interview
 const bookInterview = (id, interview) => {
   const appointment = {
@@ -44,6 +52,7 @@ const bookInterview = (id, interview) => {
     setState({
       ...state,
       appointments,
+      days: getUpdateSpots(appointments)
     });
   });
 };
@@ -67,6 +76,7 @@ const cancelInterview = id => {
     setState({
       ...state,
       appointments,
+      days: getUpdateSpots(appointments)
     });
   });
 };
