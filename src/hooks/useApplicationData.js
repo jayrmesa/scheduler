@@ -64,6 +64,11 @@ useEffect(() => {
 // Set the onmessage event listener to websocket
 // If type is SET_INTERVIEW, update appointment interview in state 
 useEffect(() => {
+
+  state.ws.onopen = (event) => {
+    state.ws.send('ping');
+  };
+
   state.ws.onmessage = (event) => {
     const data = JSON.parse(event.data);
     const { type, id, interview } = data;
