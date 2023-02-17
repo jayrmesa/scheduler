@@ -40,7 +40,6 @@ export const useApplicationData = () => {
     days: [],
     appointments: {},
     interviewers: {}, 
-    ws: null
   });
 
 // GET Routes and start the Websocket connection then populate days , appointments and interviewers based on API call
