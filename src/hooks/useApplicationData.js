@@ -65,7 +65,7 @@ useEffect(() => {
 // If type is SET_INTERVIEW, update appointment interview in state 
 useEffect(() => {
 
-  state.ws.onopen = (event) => {
+  state.ws.onopen = () => {
     state.ws.send('ping');
   };
 
