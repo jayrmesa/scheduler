@@ -106,9 +106,8 @@ const bookInterview = (id, interview) => {
     [id]: appointment
   };
 
-  return axios.put(`/api/appointments/${id}`, {
-    interview: interview
-  }).then(() => {
+  return axios.put(`/api/appointments/${id}`, { interview })
+  .then(() => {
     dispatch({
       type: SET_INTERVIEW,
       appointments,
