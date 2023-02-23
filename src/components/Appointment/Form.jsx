@@ -12,8 +12,7 @@ export default function Form(props) {
   const reset = function() {
     setStudent("");
     setInterviewer(null);
-    
-  }
+  };
 
   // reset state and call onCancel
   const cancel = function() {
@@ -32,9 +31,7 @@ export default function Form(props) {
 
     setError("");
     props.onSave(student, interviewer); 
-  }
-
-
+  };
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -54,7 +51,7 @@ export default function Form(props) {
 
         <section className="appointment__validation">{error}</section>
         <InterviewerList 
-          interviewers={props.interviewers} //props.interviewers TODO
+          interviewers={props.interviewers} 
           interviewer={interviewer}
           onChange={setInterviewer}
         />

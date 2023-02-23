@@ -9,16 +9,17 @@ import reducer, {
 
 export const useApplicationData = () => {
 
-  const [state, dispatch] = useReducer(reducer, {
+  const [ state, dispatch ] = useReducer(reducer, {
     day: "Monday",
     days: [],
     appointments: {},
     interviewers: {},
-    ws: null 
+    ws: null
   });
 
 // GET Routes and start the Websocket connection then populate days , appointments and interviewers based on API call
 useEffect(() => {
+  state.ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
 
   Promise.all([
     axios.get('/api/days'),
@@ -28,17 +29,15 @@ useEffect(() => {
     dispatch({
       type: SET_APPLICATION_DATA,
       days: all[0].data,
-      appointments: all[1].data, 
+      appointments: all[1].data,
       interviewers: all[2].data
     });
-    });
-  }, []);
+  }); 
+}, []);
   
 // Set the onmessage event listener to websocket
 // If type is SET_INTERVIEW, update appointment interview in state 
 useEffect(() => {
-
-  state.ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
 
   state.ws.onopen = () => {
     state.ws.send('ping');
