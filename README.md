@@ -5,13 +5,13 @@
 ## Purpose
 The Scheduler APP is created using Create React App while the API server is deployed using Express.
 
-The App allows users to book technical interviews between students and mentors. Each appointments can be between the hours of 12 PM and 5 PM, Monday to Friday. Each student will have one interviewer.
+The App allows users to book technical interviews between students and mentors. Each appointment can be between the hours of 12 PM and 5 PM, Monday to Friday. Each student will have one interviewer.
 
-This Project contains implementation of React view library with databases. The server-side api implementation is located in this [reprository](https://github.com/jayrmesa/scheduler-api).
+This project contains implementation of React view library with databases. The server-side api implementation is located in this [repository](https://github.com/jayrmesa/scheduler-api).
 
 ## Application Functionality
 
-A new student booking appointment, by selecting the day, interviewer and placing the name. With other functionality such as Edit and Delete:
+A new student booking an appointment, by entering their name and selecting the day and the interviewer. With other functionality such as Edit and Delete:
 
 !["Screenshot of Functionality"](docs/functionality.gif)
 
